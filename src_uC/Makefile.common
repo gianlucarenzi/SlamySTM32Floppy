@@ -1,0 +1,87 @@
+# Makefile.common
+
+######################################
+# building variables
+######################################
+# debug build?
+DEBUG = 0
+
+ifeq ($(DEBUG), 1)
+	OPT =
+else
+	# optimization level
+	OPTLVL = -O2
+	#OPTLVL = -O3
+	OPT = $(OPTLVL) -fomit-frame-pointer -funroll-loops
+endif
+
+
+#######################################
+# paths
+#######################################
+# Build path
+BUILD_DIR = build
+
+############################################
+# STM32F4xx STDPERIPH DRIVER Library sources
+############################################
+LIBRARY_C_SOURCES = \
+	stm32f4xx_it.c \
+	STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.c \
+	STM32F4xx_StdPeriph_Driver/src/stm32f4xx_gpio.c \
+	STM32F4xx_StdPeriph_Driver/src/stm32f4xx_exti.c \
+	STM32F4xx_StdPeriph_Driver/src/stm32f4xx_tim.c \
+	STM32F4xx_StdPeriph_Driver/src/misc.c \
+	STM32F4xx_StdPeriph_Driver/src/stm32f4xx_syscfg.c \
+
+######################################
+# CMSIS Library sources
+######################################
+LIBRARY_C_SOURCES += \
+	CMSIS/system_stm32f4xx.c \
+
+
+######################################
+# Utilities Library sources
+######################################
+LIBRARY_C_SOURCES += \
+	Utilities/stm32f4_discovery.c \
+
+
+######################################
+# Tilzor Library sources
+######################################
+LIBRARY_C_SOURCES += \
+	Tilzor/tm_stm32f4_usb_vcp.c \
+	Tilzor/usb_cdc_device/usb_bsp.c \
+	Tilzor/usb_cdc_device/usb_core.c \
+	Tilzor/usb_cdc_device/usb_dcd.c \
+	Tilzor/usb_cdc_device/usbd_cdc_core.c \
+	Tilzor/usb_cdc_device/usb_dcd_int.c \
+	Tilzor/usb_cdc_device/usbd_core.c \
+	Tilzor/usb_cdc_device/usbd_desc.c \
+	Tilzor/usb_cdc_device/usbd_ioreq.c \
+	Tilzor/usb_cdc_device/usbd_req.c \
+	Tilzor/usb_cdc_device/usbd_usr.c \
+	
+
+######################################
+# Library INCLUDES
+######################################
+LIBRARY_C_INCLUDES = \
+	-ICMSIS/ \
+	-I. \
+	-ISTM32F4xx_StdPeriph_Driver/inc/ \
+	-ITilzor/ \
+	-ITilzor/usb_cdc_device/ \
+#	-ILibraries/Device/STM32F4xx/Include \
+#	-ILibraries/STM32F4xx_StdPeriph_Driver/inc/ \
+#	-ILibraries/tm_stm32f4_fatfs \
+#	-ILibraries/tm_stm32f4_gpio \
+#	-ILibraries/tm_stm32f4_fatfs/fatfs \
+#	-ILibraries/tm_stm32f4_delay \
+#	-ILibraries/tm_stm32f4_fatfs/fatfs/drivers \
+#	-ILibraries/tm_stm32f4_spi
+
+
+# End of Makefile.common
